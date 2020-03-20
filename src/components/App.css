@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+/* Megan's custom styling is added below here */
+
+header {
+  background-color: #8d99a5;
+  color: #333333;
+  padding: 1px;
+}
