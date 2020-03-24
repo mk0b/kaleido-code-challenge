@@ -9,6 +9,9 @@ import React, { Component } from 'react';
 //initializing these outside of the stateful component because I want to be able to add each compound/wells to the array without it getting re-written
 let compounds = [];
 let wells = [];
+let existingWells = [
+    'Please register a compound.'
+];
 
 class RegisterCompound extends Component {
     constructor(props) {
@@ -17,7 +20,6 @@ class RegisterCompound extends Component {
         //setting state to manage compound, well, and plate data
         this.state = {
             compoundID: '',
-            plate: '',
             wellData: [
                 'P-12345.A1',
                 'P-12345.A2',
@@ -67,11 +69,8 @@ class RegisterCompound extends Component {
             for (let i = 0; i < wellOptions.length; i++) {
                 if (wellOptions[i].selected) {
                     console.log('Selected well options.', wellOptions[i]);
-                    wells.push(wellOptions[i].value);
+                    wells.push(wellOptions[i].textContent);
                     //FIXME: Options are getting selected more than once when I only click once
-                } else {
-                    //resetting wells array if no options are selected
-                    //wells = [];
                 }
             }
         }
@@ -79,7 +78,7 @@ class RegisterCompound extends Component {
 
     }
 
-    submit = (event) => {
+    register = (event) => {
         event.preventDefault();
         const {
             compoundID,
@@ -87,7 +86,7 @@ class RegisterCompound extends Component {
 
         const newCompound = {
             compoundID,
-            wells
+            wells,
         }
         console.log('New Compound: ', newCompound)
 
@@ -103,6 +102,8 @@ class RegisterCompound extends Component {
         });
         console.log('What is in state: ', this.state);
 
+        //putting the wells contents into existingWells array before resetting wells
+        existingWells = wells;
         //resetting the form fields need to do this manually because I am preventing default submit
         wells = [];
         this.setState(() => {
@@ -110,6 +111,10 @@ class RegisterCompound extends Component {
                 compoundID: '',
             }
         });
+    }
+
+    transfer = (event) => {
+
     }
 
     render() {
@@ -126,6 +131,15 @@ class RegisterCompound extends Component {
             );
         });
 
+    
+        console.log('Existing Wells', existingWells);
+        const existingWellItems = existingWells.map(item => {
+            return (
+                <option key={item} value={item}>{item}</option>
+            );
+        });
+
+        //TODO: Figure out how to use existing well array to populate the existing wells dropdwon
         console.log('Making sure state is updated correctly', this.state);
 
         return (
@@ -151,8 +165,31 @@ class RegisterCompound extends Component {
                                 {wellIds}
                             </select>
                         </label>
-                        <button onClick={this.submit} className="register">Register</button>
+                        <button onClick={this.register} className="register">Register</button>
                         <button className="cancel">Cancel</button>
+                    </form>
+                </div>
+                <div className="transfer-compound-modal">
+                    <form id="transfer-compound-form" className="transfer-compound-form">
+                        <button onClick={this.transfer}>Transfer Content</button>
+                        <label id="wells"> 
+                            Existing Wells:
+                            <select 
+                                name="existingWells"
+                                onChange={this.change}>
+                                {existingWellItems}
+                            </select>
+                        </label>
+                        <label id="wells"> 
+                            Transfer to:
+                            <select 
+                                name="wells"
+                                multiple 
+                                onChange={this.change}
+                                value={wells}>
+                                {wellIds}
+                            </select>
+                        </label>
                     </form>
                 </div>
             </div>
