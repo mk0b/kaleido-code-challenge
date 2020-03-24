@@ -21,14 +21,10 @@ class RegisterCompound extends Component {
         super(props);
         //setting state to manage compound and well data
         this.state = {
-            compounds: [
-                {
-                    compoundID: '',
-                    plate: '',
-                    wells: []
-                }
-
-            ],
+            compoundID: '',
+            plate: '',
+            wells: '',
+            compounds: [],
             plateData: [
                 {
                     plateID: 'P-12345',
@@ -93,19 +89,46 @@ class RegisterCompound extends Component {
 
         this.setState(() => {
             return {
-                compounds: [
-                    {
-                        [name]: value,
-                    }
-                ]
+                [name]: value,
             }
         });
+    }
+
+    submit = (event) => {
+        event.preventDefault();
+        const tempCompoundArray = [];
+        const {
+            compoundID,
+            plate,
+            wells
+        } = this.state;
+
+        const newCompound = {
+            compoundID,
+            plate,
+            wells
+        }
+        console.log('New Compound: ', newCompound)
+
+        //adding to temp array
+        tempCompoundArray.push(newCompound);
+        console.log('Temporary Compound Array', tempCompoundArray);
+        
+        //adding the newCompound object to the compounds array.
+        this.setState(() => {
+            return {
+                compounds: tempCompoundArray
+            }
+        });
+        console.log('What is in state: ', this.state);
     }
 
     render() {
         const {
             compoundID,
-        } = this.state.compounds;
+            plate,
+            wells
+        } = this.state;
 
 
         //dynamically adding plate data to the plates dropdown
@@ -138,7 +161,8 @@ class RegisterCompound extends Component {
                             Plate:
                             <select 
                                 name="plate"
-                                onChange={this.change}>
+                                onChange={this.change}
+                                value={plate}>
                                 {platesIds}
                             </select>
                         </label>
@@ -146,7 +170,8 @@ class RegisterCompound extends Component {
                             Wells:
                             <select 
                                 name="wells" 
-                                onChange={this.change}>
+                                onChange={this.change}
+                                value={wells}>
                                 <option value="P-12345.A1">P-12345.A1</option>
                                 <option value="P-12345.A2">P-12345.A2</option>
                                 <option value="P-12345.A3">P-12345.A3</option>
