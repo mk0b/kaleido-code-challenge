@@ -6,78 +6,39 @@ import React, { Component } from 'react';
 
 //TODO: Clean up console.logs
 
+//initializing this outside of the stateful component because I want to be able to add each compound to the array without it getting re-written
+let compounds = [];
+
 class RegisterCompound extends Component {
 
-    //convert this to stateful? 
-    //Consider using contextAPI
-    //add onchange to track form input
-    //add value to inputs
-
-    //Now I am thinking an array of objects each object is a compound id and an array of wells A1 example of a well
-    //create arrays for plate well combos then add an if statement on the dropdown depending on what plate was selected and show the well options for that plate
-
+    //TODO: Make wells simplier? Just have A1 etc options instead of connecting them to plate. Already choosing a plate and storing.
     constructor(props) {
         //binding this keyword to this class
         super(props);
-        //setting state to manage compound and well data
+        //setting state to manage compound, well, and plate data
         this.state = {
             compoundID: '',
             plate: '',
             wells: '',
-            compounds: [],
             plateData: [
-                {
-                    plateID: 'P-12345',
-                    wells: [
-                        'P-12345.A1',
-                        'P-12345.A2',
-                        'P-12345.A3',
-                        'P-12345.A4',
-                        'P-12345.B1',
-                        'P-12345.B2',
-                        'P-12345.B3',
-                        'P-12345.B4',
-                        'P-12345.C1',
-                        'P-12345.C2',
-                        'P-12345.C3',
-                        'P-12345.C4',
-                    ]
-                },
-                {
-                    plateID: 'P-1',
-                    wells: [
-                        'P-1.A1',
-                        'P-1.A2',
-                        'P-1.A3',
-                        'P-1.A4',
-                        'P-1.B1',
-                        'P-1.B2',
-                        'P-1.B3',
-                        'P-1.B4',
-                        'P-1.C1',
-                        'P-1.C2',
-                        'P-1.C3',
-                        'P-1.C4',
-                    ]
-                },
-                {
-                    plateID: 'P-2',
-                    wells: [
-                        'P-2.A1',
-                        'P-2.A2',
-                        'P-2.A3',
-                        'P-2.A4',
-                        'P-2.B1',
-                        'P-2.B2',
-                        'P-2.B3',
-                        'P-2.B4',
-                        'P-2.C1',
-                        'P-2.C2',
-                        'P-2.C3',
-                        'P-2.C4',
-                    ]
-                },
-            ]
+                'P-12345',
+                'P-1',
+                'P-2',
+            ],
+            wellData: [
+                'A1',
+                'A2',
+                'A3',
+                'A4',
+                'B1',
+                'B2',
+                'B3',
+                'B4',
+                'C1',
+                'C2',
+                'C3',
+                'C4',
+            ],
         }
     }
 
@@ -96,7 +57,6 @@ class RegisterCompound extends Component {
 
     submit = (event) => {
         event.preventDefault();
-        const tempCompoundArray = [];
         const {
             compoundID,
             plate,
@@ -111,13 +71,13 @@ class RegisterCompound extends Component {
         console.log('New Compound: ', newCompound)
 
         //adding to temp array
-        tempCompoundArray.push(newCompound);
-        console.log('Temporary Compound Array', tempCompoundArray);
+        compounds.push(newCompound);
+        console.log('Temporary Compound Array', compounds);
         
         //adding the newCompound object to the compounds array.
         this.setState(() => {
             return {
-                compounds: tempCompoundArray
+                compounds
             }
         });
         console.log('What is in state: ', this.state);
@@ -133,14 +93,23 @@ class RegisterCompound extends Component {
 
         //dynamically adding plate data to the plates dropdown
         const plates = this.state.plateData;
-        console.log('Plate Data:', plates);
+        //console.log('Plate Data:', plates);
         const platesIds = plates.map(plate => {
-            console.log(plate.plateID);
+            //console.log(plate);
             return (
-                <option key={plate.plateID} value={plate.plateID}>{plate.plateID}</option>
+                <option key={plate} value={plate}>{plate}</option>
             );
         });
-        console.log('plate Ids', typeof platesIds, platesIds);
+        //console.log('plate Ids', typeof platesIds, platesIds);
+
+        //dynamically adding well data to the wells dropdown
+        const wellItems = this.state.wellData;
+        //console.log('Well Data: ', wellItems);
+        const wellIds = wellItems.map(well => {
+            return (
+                <option key={well} value={well}>{well}</option>
+            );
+        });
 
         console.log('Making sure state is updated correctly', this.state);
 
@@ -172,11 +141,7 @@ class RegisterCompound extends Component {
                                 name="wells" 
                                 onChange={this.change}
                                 value={wells}>
-                                <option value="P-12345.A1">P-12345.A1</option>
-                                <option value="P-12345.A2">P-12345.A2</option>
-                                <option value="P-12345.A3">P-12345.A3</option>
-                                <option value="P-12345.A4">P-12345.A4</option>
-                                <option value="P-12345.A5">P-12345.A5</option>
+                                {wellIds}
                             </select>
                         </label>
                         <button onClick={this.submit} className="register">Register</button>
