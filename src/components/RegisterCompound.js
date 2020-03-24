@@ -18,24 +18,31 @@ class RegisterCompound extends Component {
         this.state = {
             compoundID: '',
             plate: '',
-            plateData: [
-                'P-12345',
-                'P-1',
-                'P-2',
-            ],
             wellData: [
-                'A1',
-                'A2',
-                'A3',
-                'A4',
-                'B1',
-                'B2',
-                'B3',
-                'B4',
-                'C1',
-                'C2',
-                'C3',
-                'C4',
+                'P-12345.A1',
+                'P-12345.A2',
+                'P-12345.A3',
+                'P-12345.A4',
+                'P-12345.B1',
+                'P-12345.B2',
+                'P-12345.B3',
+                'P-12345.B4',
+                'P-12345.C1',
+                'P-12345.C2',
+                'P-12345.C3',
+                'P-12345.C4',
+                'P-1.A1',
+                'P-1.A2',
+                'P-1.A3',
+                'P-1.A4',
+                'P-1.B1',
+                'P-1.B2',
+                'P-1.B3',
+                'P-1.B4',
+                'P-1.C1',
+                'P-1.C2',
+                'P-1.C3',
+                'P-1.C4',
             ],
         }
     }
@@ -76,12 +83,10 @@ class RegisterCompound extends Component {
         event.preventDefault();
         const {
             compoundID,
-            plate,
         } = this.state;
 
         const newCompound = {
             compoundID,
-            plate,
             wells
         }
         console.log('New Compound: ', newCompound)
@@ -103,7 +108,6 @@ class RegisterCompound extends Component {
         this.setState(() => {
             return {
                 compoundID: '',
-                plate: '',
             }
         });
     }
@@ -111,20 +115,7 @@ class RegisterCompound extends Component {
     render() {
         const {
             compoundID,
-            plate,
         } = this.state;
-
-
-        //dynamically adding plate data to the plates dropdown
-        const plates = this.state.plateData;
-        //console.log('Plate Data:', plates);
-        const platesIds = plates.map(plate => {
-            //console.log(plate);
-            return (
-                <option key={plate} value={plate}>{plate}</option>
-            );
-        });
-        //console.log('plate Ids', typeof platesIds, platesIds);
 
         //dynamically adding well data to the wells dropdown
         const wellItems = this.state.wellData;
@@ -150,15 +141,6 @@ class RegisterCompound extends Component {
                             onChange={this.change}
                             value={compoundID}
                         />
-                        <label id="plate">
-                            Plate:
-                            <select 
-                                name="plate"
-                                onChange={this.change}
-                                value={plate}>
-                                {platesIds}
-                            </select>
-                        </label>
                         <label id="wells"> 
                             Wells:
                             <select 
