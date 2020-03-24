@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 
 //stateful component that manages compound and well data.
-
-//import GridDisplay from './GridDisplay';
-
 //TODO: Clean up console.logs
 
-//initializing these outside of the stateful component because I want to be able to add each compound/wells to the array without it getting re-written
+//initializing these outside of the stateful component because I want to be able to add each compound/wells 
+//to the array without it getting re-written
 let compounds = [];
 let wells = [];
 let existingWells = [
-    'Please register a compound.'
+    'Please register some compounds.'
 ];
+let newWells = [];
 
 class RegisterCompound extends Component {
     constructor(props) {
@@ -20,6 +19,7 @@ class RegisterCompound extends Component {
         //setting state to manage compound, well, and plate data
         this.state = {
             compoundID: '',
+            transferFrom: '',
             wellData: [
                 'P-12345.A1',
                 'P-12345.A2',
@@ -74,7 +74,18 @@ class RegisterCompound extends Component {
                 }
             }
         }
-        
+
+        //updating array for well data
+        if (event.target.name === 'newWells') {
+            const wellOptions = event.target.options;
+            for (let i = 0; i < wellOptions.length; i++) {
+                if (wellOptions[i].selected) {
+                    console.log('Selected well options.', wellOptions[i]);
+                    newWells.push(wellOptions[i].textContent);
+                    //FIXME: Options are getting selected more than once when I only click once
+                }
+            }
+        }
 
     }
 
@@ -114,12 +125,35 @@ class RegisterCompound extends Component {
     }
 
     transfer = (event) => {
+        event.preventDefault();
+        console.log('New Wells', newWells);
 
+        const {
+            transferFrom,
+        } = this.state;
+
+        const transferCompound = {
+            transferFrom,
+            newWells
+        }
+
+        console.log(transferCompound);
+
+        //adding new compound to compounds array.
+        compounds.push(transferCompound)
+
+        //adding the newCompound object to the compounds array.
+        this.setState(() => {
+            return {
+                compounds
+            }
+        });
     }
 
     render() {
         const {
             compoundID,
+            transferFrom
         } = this.state;
 
         //dynamically adding well data to the wells dropdown
@@ -144,7 +178,7 @@ class RegisterCompound extends Component {
 
         return (
             <div className="register-compound-container">
-                <button>New Compound</button>
+                <h4>Register a Compound</h4>
                 <div className="register-compound-modal">
                     <form id="register-compound-form" className="register-compound-form">
                         <input 
@@ -166,32 +200,34 @@ class RegisterCompound extends Component {
                             </select>
                         </label>
                         <button onClick={this.register} className="register">Register</button>
-                        <button className="cancel">Cancel</button>
                     </form>
                 </div>
+                <h4>Transfer Well Contents</h4>
                 <div className="transfer-compound-modal">
                     <form id="transfer-compound-form" className="transfer-compound-form">
-                        <button onClick={this.transfer}>Transfer Content</button>
-                        <label id="wells"> 
+                        <label id="existingWells"> 
                             Existing Wells:
                             <select 
                                 name="existingWells"
-                                onChange={this.change}>
+                                onChange={this.change}
+                                value={transferFrom}>
                                 {existingWellItems}
                             </select>
                         </label>
-                        <label id="wells"> 
+                        <label id="newWells"> 
                             Transfer to:
                             <select 
-                                name="wells"
+                                name="newWells"
                                 multiple 
                                 onChange={this.change}
-                                value={wells}>
+                                value={newWells}>
                                 {wellIds}
                             </select>
                         </label>
+                        <button onClick={this.transfer} className="transfer">Transfer</button>
                     </form>
                 </div>
+                <h4>Retrieve Well Contents</h4>
             </div>
         );
     }
