@@ -82,10 +82,10 @@ class RegisterCompound extends Component {
         //search for transfer from well
         if (this.state.compounds) {
             for (let i = 0; i < this.state.compounds.length; i++) {
-                console.log(this.state.compounds[i].wells);
+                //console.log(this.state.compounds[i].wells);
                 const wellsString = this.state.compounds[i].wells;
                 console.log('Wells String', wellsString);
-                if (wellsString === transferFrom) {
+                if (wellsString.includes(transferFrom)) {
                     //grab the compound in it
                     const compoundIDString = this.state.compounds[i].compoundID;
                     console.log('CompoundIDString', compoundIDString );
@@ -103,6 +103,7 @@ class RegisterCompound extends Component {
                             compounds,
                         };
                     });
+                    break;
                 } else {
                     console.log('Error! This well does not exist. Please register a compound with this well before attempting a transfer.');
                 }
