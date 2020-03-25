@@ -17,6 +17,7 @@ class RegisterCompound extends Component {
             wells: '',
             transferFrom: '',
             newWells: '',
+            search: '',
         }
     }
 
@@ -87,12 +88,16 @@ class RegisterCompound extends Component {
         //adding new compound to compounds array.
         compounds.push(transferCompound)
 
-        //adding the newCompound object to the compounds array.
+        //updating state with the latest compounds array
         this.setState(() => {
             return {
                 compounds
             }
         });
+    }
+
+    search = (event) => {
+        event.preventDefault();
     }
 
     render() {
@@ -101,6 +106,7 @@ class RegisterCompound extends Component {
             wells,
             transferFrom,
             newWells,
+            search,
         } = this.state;
 
         console.log('Making sure state is updated correctly', this.state);
@@ -148,6 +154,18 @@ class RegisterCompound extends Component {
                     </form>
                 </div>
                 <h3>Retrieve Well Contents</h3>
+                <div>
+                    <form>
+                        <input 
+                            id="search"
+                            name="search"
+                            type="text"
+                            placeholder="Search a well..."
+                            onChange={this.change}
+                            value={search} />
+                        <button onClick={this.search} className="search">Search</button>
+                    </form>
+                </div>
             </div>
         );
     }
