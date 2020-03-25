@@ -18,14 +18,15 @@ class RegisterCompound extends Component {
             transferFrom: '',
             newWells: '',
             search: '',
+            searchResult: '',
         }
     }
 
     change = (event) => {
         const name = event.target.name;
-        console.log('Field Name: ', name);
+        //console.log('Field Name: ', name);
         const value = event.target.value;
-        console.log('Field Value: ', value);
+        //console.log('Field Value: ', value);
 
         //updating state for field inputs
         this.setState(() => {
@@ -46,7 +47,7 @@ class RegisterCompound extends Component {
             compoundID,
             wells,
         }
-        console.log('New Compound: ', newCompound)
+        //console.log('New Compound: ', newCompound)
 
         //adding to temp array
         compounds.push(newCompound);
@@ -78,22 +79,24 @@ class RegisterCompound extends Component {
             newWells,
         } = this.state;
 
-        const transferCompound = {
-            transferFrom,
-            newWells
+        //search for transfer from well
+
+        console.log('Compound Data: ', this.state.compounds);
+        for (let i = 0; i < this.state.compounds.length; i++) {
+            console.log(this.state.compounds[i].wells);
+            const wellsString = this.state.compounds[i].wells;
+            console.log('Wells String', wellsString);
         }
 
-        console.log(transferCompound);
 
-        //adding new compound to compounds array.
-        compounds.push(transferCompound)
+        //grab the compound in it
 
-        //updating state with the latest compounds array
-        this.setState(() => {
-            return {
-                compounds
-            }
-        });
+        //create newCompounds for transfer to wells with that compound in them
+
+        //update compounds array with newCompounds
+
+        //update state with the new compounds array
+
     }
 
     search = (event) => {
@@ -133,7 +136,7 @@ class RegisterCompound extends Component {
                         <button onClick={this.register} className="register">Register</button>
                     </form>
                 </div>
-                <h3>Transfer Well Contents</h3>
+                <h3>Transfer Well Content</h3>
                 <div className="transfer-compound-modal">
                     <form id="transfer-compound-form" className="transfer-compound-form">
                         <input 
@@ -153,7 +156,7 @@ class RegisterCompound extends Component {
                         <button onClick={this.transfer} className="transfer">Transfer</button>
                     </form>
                 </div>
-                <h3>Retrieve Well Contents</h3>
+                <h3>Retrieve Well Content</h3>
                 <div>
                     <form>
                         <input 
