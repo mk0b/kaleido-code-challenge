@@ -7,9 +7,6 @@ import React, { Component } from 'react';
 //to the array without it getting re-written
 let compounds = [];
 let wells = [];
-let existingWells = [
-    'Please register some compounds.'
-];
 let newWells = [];
 
 class RegisterCompound extends Component {
@@ -114,7 +111,6 @@ class RegisterCompound extends Component {
         console.log('What is in state: ', this.state);
 
         //putting the wells contents into existingWells array before resetting wells
-        existingWells = wells;
         //resetting the form fields need to do this manually because I am preventing default submit
         wells = [];
         this.setState(() => {
@@ -156,29 +152,11 @@ class RegisterCompound extends Component {
             transferFrom
         } = this.state;
 
-        //dynamically adding well data to the wells dropdown
-        const wellItems = this.state.wellData;
-        //console.log('Well Data: ', wellItems);
-        const wellIds = wellItems.map(well => {
-            return (
-                <option key={well} value={well}>{well}</option>
-            );
-        });
-
-    
-        console.log('Existing Wells', existingWells);
-        const existingWellItems = existingWells.map(item => {
-            return (
-                <option key={item} value={item}>{item}</option>
-            );
-        });
-
-        //TODO: Figure out how to use existing well array to populate the existing wells dropdwon
         console.log('Making sure state is updated correctly', this.state);
 
         return (
             <div className="register-compound-container">
-                <h4>Register a Compound</h4>
+                <h3>Register a Compound</h3>
                 <div className="register-compound-modal">
                     <form id="register-compound-form" className="register-compound-form">
                         <input 
@@ -187,47 +165,38 @@ class RegisterCompound extends Component {
                             type="text"
                             placeholder="Compound ID..."
                             onChange={this.change}
-                            value={compoundID}
-                        />
-                        <label id="wells"> 
-                            Wells:
-                            <select 
-                                name="wells"
-                                multiple 
-                                onChange={this.change}
-                                value={wells}>
-                                {wellIds}
-                            </select>
-                        </label>
+                            value={compoundID} />
+                        <input 
+                            id="wells"
+                            name="wells"
+                            type="text"
+                            placeholder="Well(s)..."
+                            onChange={this.change}
+                            value={wells} />
                         <button onClick={this.register} className="register">Register</button>
                     </form>
                 </div>
-                <h4>Transfer Well Contents</h4>
+                <h3>Transfer Well Contents</h3>
                 <div className="transfer-compound-modal">
                     <form id="transfer-compound-form" className="transfer-compound-form">
-                        <label id="existingWells"> 
-                            Existing Wells:
-                            <select 
-                                name="existingWells"
-                                onChange={this.change}
-                                value={transferFrom}>
-                                {existingWellItems}
-                            </select>
-                        </label>
-                        <label id="newWells"> 
-                            Transfer to:
-                            <select 
-                                name="newWells"
-                                multiple 
-                                onChange={this.change}
-                                value={newWells}>
-                                {wellIds}
-                            </select>
-                        </label>
+                        <input 
+                            id="existingWell"
+                            name="existingWell"
+                            type="text"
+                            placeholder="Well to transfer from..."
+                            onChange={this.change}
+                            value={transferFrom} />
+                        <input 
+                            id="newWells"
+                            name="newWells"
+                            type="text"
+                            placeholder="Well(s) to transfer to..."
+                            onChange={this.change}
+                            value={newWells} />
                         <button onClick={this.transfer} className="transfer">Transfer</button>
                     </form>
                 </div>
-                <h4>Retrieve Well Contents</h4>
+                <h3>Retrieve Well Contents</h3>
             </div>
         );
     }
