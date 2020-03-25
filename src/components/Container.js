@@ -81,17 +81,31 @@ class RegisterCompound extends Component {
 
         //search for transfer from well
 
-        console.log('Compound Data: ', this.state.compounds);
-        for (let i = 0; i < this.state.compounds.length; i++) {
-            console.log(this.state.compounds[i].wells);
-            const wellsString = this.state.compounds[i].wells;
-            console.log('Wells String', wellsString);
+        if (this.state.compounds) {
+            for (let i = 0; i < this.state.compounds.length; i++) {
+                console.log(this.state.compounds[i].wells);
+                const wellsString = this.state.compounds[i].wells;
+                console.log('Wells String', wellsString);
+                if (wellsString === transferFrom) {
+                    //grab the compound in it
+                    const compoundIDString = this.state.compounds[i].compoundID;
+                    console.log('CompoundIDString', compoundIDString );
+                    //create newCompounds for transfer to wells with that compound in them
+                    const newCompound = {
+                        compoundID: compoundIDString,
+                        wells: newWells,
+                    }
+                    console.log('New Compound in transfer: ', newCompound);
+
+                } else {
+                    console.log('Error! This well does not exist. Please register a compound with this well before attempting a transfer.');
+                }
+            }
+        } else {
+            console.log('Error! Please register at least one compound.');
         }
 
-
-        //grab the compound in it
-
-        //create newCompounds for transfer to wells with that compound in them
+        
 
         //update compounds array with newCompounds
 
