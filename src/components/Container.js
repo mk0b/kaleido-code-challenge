@@ -130,11 +130,7 @@ class RegisterCompound extends Component {
                     const compoundIDString = this.state.compounds[i].compoundID;
 
                     //show well and compound on screen
-                    message = `${search} contains Compound ID: ${compoundIDString}`;
-                    document.querySelector('.search-results').innerHTML = message;
-                } else {
-                    //no search results
-                    message = 'No search results, please try again.';
+                    message = `${search} contains Compound: ${compoundIDString}`;
                     document.querySelector('.search-results').innerHTML = message;
                 }
             }
