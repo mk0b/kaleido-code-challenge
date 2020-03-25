@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
 
-//TODO: Add my icons next to my name? Maybe if I am feeling extra
-
 const Header = () => (
     <Fragment>
         <header>

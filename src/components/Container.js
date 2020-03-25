@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 
-//stateful component that manages compound and well data.
-//TODO: Clean up console.logs
-
-//initializing this outside of the stateful component because I want to be able to add each compound/wells 
-//to the array without it getting re-written
+//initializing outside of component so it wont re-write
 let compounds = [];
 
+//stateful component that handle all methods and needed data
 class RegisterCompound extends Component {
     constructor(props) {
         //binding this keyword to this class
         super(props);
-        //setting state to manage compound, well, and plate data
+        //setting state to manage needed data
         this.state = {
             compoundID: '',
             wells: '',
@@ -22,10 +19,9 @@ class RegisterCompound extends Component {
     }
 
     change = (event) => {
+        //grabbing name and value for form field that is being changed
         const name = event.target.name;
-        //console.log('Field Name: ', name);
         const value = event.target.value;
-        //console.log('Field Value: ', value);
 
         //updating state for field inputs
         this.setState(() => {
@@ -37,6 +33,7 @@ class RegisterCompound extends Component {
 
     register = (event) => {
         event.preventDefault();
+
         const {
             compoundID,
             wells,
@@ -46,21 +43,17 @@ class RegisterCompound extends Component {
             compoundID,
             wells,
         }
-        //console.log('New Compound: ', newCompound)
 
-        //adding to temp array
-        compounds.push(newCompound);
-        console.log('Compounds array', compounds);
-        
         //adding the newCompound object to the compounds array.
+        compounds.push(newCompound);
+        
+        //updating state with the compounds array
         this.setState(() => {
             return {
                 compounds
             }
         });
-        //console.log('What is in state: ', this.state);
 
-        //putting the wells contents into existingWells array before resetting wells
         //resetting the form fields need to do this manually because I am preventing default submit
         this.setState(() => {
             return {
@@ -78,23 +71,22 @@ class RegisterCompound extends Component {
             newWells,
         } = this.state;
 
-        //search for transfer from well
+        //search for transfer from well if at least one compound is registered
         if (this.state.compounds) {
 
             for (let i = 0; i < this.state.compounds.length; i++) {
                 //console.log(this.state.compounds[i].wells);
                 const wellsString = this.state.compounds[i].wells;
-                console.log('Wells String', wellsString);
+
                 if (wellsString.includes(transferFrom)) {
                     //grab the compound in it
                     const compoundIDString = this.state.compounds[i].compoundID;
-                    console.log('CompoundIDString', compoundIDString );
+
                     //create newCompounds for transfer to wells with that compound in them
                     const newCompound = {
                         compoundID: compoundIDString,
                         wells: newWells,
                     }
-                    console.log('New Compound in transfer: ', newCompound);
 
                     //update compounds array with newCompounds
                     compounds.push(newCompound);
@@ -106,7 +98,9 @@ class RegisterCompound extends Component {
                         };
                     });
 
+                    //stopping once a match is found
                     break;
+
                 } else {
                     console.log('Error! This well does not exist. Please register a compound with this well before attempting a transfer.');
                 }
@@ -123,16 +117,18 @@ class RegisterCompound extends Component {
             search
         } = this.state;
 
-        //find well
+        //find well from search field if at least one compound is registered
         if (this.state.compounds) {
+
             let message;
+
             for (let i = 0; i < this.state.compounds.length; i++) {
                 const wellsString = this.state.compounds[i].wells;
-                console.log('Wells String', wellsString);
+
                 if (wellsString.includes(search)) {
                     //grab associated compound
                     const compoundIDString = this.state.compounds[i].compoundID;
-                    console.log('CompoundIDString', compoundIDString);
+
                     //show well and compound on screen
                     message = `${search} contains Compound ID: ${compoundIDString}`;
                     document.querySelector('.search-results').innerHTML = message;
@@ -156,7 +152,7 @@ class RegisterCompound extends Component {
             search,
         } = this.state;
 
-        console.log('Making sure state is updated correctly', this.state);
+        console.log('STATE: ', this.state);
 
         return (
             <div className="register-compound-container">
@@ -201,8 +197,8 @@ class RegisterCompound extends Component {
                     </form>
                 </div>
                 <h3>Retrieve Well Content</h3>
-                <div>
-                    <form>
+                <div className="search-container">
+                    <form id="search-form" className="search-form">
                         <input 
                             id="search"
                             name="search"
