@@ -3,11 +3,9 @@ import React, { Component } from 'react';
 //stateful component that manages compound and well data.
 //TODO: Clean up console.logs
 
-//initializing these outside of the stateful component because I want to be able to add each compound/wells 
+//initializing this outside of the stateful component because I want to be able to add each compound/wells 
 //to the array without it getting re-written
 let compounds = [];
-//let wells = [];
-let newWells = [];
 
 class RegisterCompound extends Component {
     constructor(props) {
@@ -59,7 +57,7 @@ class RegisterCompound extends Component {
                 compounds
             }
         });
-        console.log('What is in state: ', this.state);
+        //console.log('What is in state: ', this.state);
 
         //putting the wells contents into existingWells array before resetting wells
         //resetting the form fields need to do this manually because I am preventing default submit
@@ -73,10 +71,10 @@ class RegisterCompound extends Component {
 
     transfer = (event) => {
         event.preventDefault();
-        console.log('New Wells', newWells);
 
         const {
             transferFrom,
+            newWells,
         } = this.state;
 
         const transferCompound = {
