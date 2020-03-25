@@ -18,7 +18,6 @@ class RegisterCompound extends Component {
             transferFrom: '',
             newWells: '',
             search: '',
-            searchResult: '',
         }
     }
 
@@ -120,13 +119,32 @@ class RegisterCompound extends Component {
     search = (event) => {
         event.preventDefault();
 
+        const {
+            search
+        } = this.state;
+
         //find well
-
-        //grab associated compound
-
-        //update state with well and compound
-
-        //show well and compound on screen
+        if (this.state.compounds) {
+            let message;
+            for (let i = 0; i < this.state.compounds.length; i++) {
+                const wellsString = this.state.compounds[i].wells;
+                console.log('Wells String', wellsString);
+                if (wellsString.includes(search)) {
+                    //grab associated compound
+                    const compoundIDString = this.state.compounds[i].compoundID;
+                    console.log('CompoundIDString', compoundIDString);
+                    //show well and compound on screen
+                    message = `${search} contains Compound ID: ${compoundIDString}`;
+                    document.querySelector('.search-results').innerHTML = message;
+                } else {
+                    //no search results
+                    message = 'No search results, please try again.';
+                    document.querySelector('.search-results').innerHTML = message;
+                }
+            }
+        } else {
+            console.log('Error! Please register at least one compound.');
+        }
     }
 
     render() {
@@ -194,6 +212,9 @@ class RegisterCompound extends Component {
                             value={search} />
                         <button onClick={this.search} className="search">Search</button>
                     </form>
+                    <div className="search-results">
+                        {/* Empty div will show content on search */}
+                    </div>
                 </div>
             </div>
         );
