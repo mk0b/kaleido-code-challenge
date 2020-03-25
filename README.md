@@ -2,7 +2,36 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Kaleido Coding Challenge | by Megan Katherine O'Brien | www.megankatherineobrien.com
 
+## Description
 
+This program:
+
+- Stores text inputs for all fields.
+- Registers Compound ID and Well(s) associated.
+- Transfers contents of a Well to 1 or more other wells.
+- Allows search of a Well and will return the well searched for and it's compound content.
+
+Note: After our email I kept the UI minimal so make sure to keep the console open while using/testing as I have left only important messages and a log of state so you can see what is going on while inputting fields and clicking register, transfer, and search.
+
+### Build Code
+
+1. Download Code
+2. Run npm install 
+3. Run npm run build
+
+### Run Code
+
+Locally:
+
+1. Download Code
+2. Run npm install
+3. Run npm start
+
+Live Site: https://mk0b.github.io/kaleido-code-challenge/
+
+### Test Code
+
+Review the project description in start inputting fields in the UI to test.
 
 
 --------------------------------------------------------------------------
