@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 //initializing these outside of the stateful component because I want to be able to add each compound/wells 
 //to the array without it getting re-written
 let compounds = [];
-let wells = [];
+//let wells = [];
 let newWells = [];
 
 class RegisterCompound extends Component {
@@ -16,33 +16,9 @@ class RegisterCompound extends Component {
         //setting state to manage compound, well, and plate data
         this.state = {
             compoundID: '',
+            wells: '',
             transferFrom: '',
-            wellData: [
-                'P-12345.A1',
-                'P-12345.A2',
-                'P-12345.A3',
-                'P-12345.A4',
-                'P-12345.B1',
-                'P-12345.B2',
-                'P-12345.B3',
-                'P-12345.B4',
-                'P-12345.C1',
-                'P-12345.C2',
-                'P-12345.C3',
-                'P-12345.C4',
-                'P-1.A1',
-                'P-1.A2',
-                'P-1.A3',
-                'P-1.A4',
-                'P-1.B1',
-                'P-1.B2',
-                'P-1.B3',
-                'P-1.B4',
-                'P-1.C1',
-                'P-1.C2',
-                'P-1.C3',
-                'P-1.C4',
-            ],
+            newWells: '',
         }
     }
 
@@ -52,44 +28,19 @@ class RegisterCompound extends Component {
         const value = event.target.value;
         console.log('Field Value: ', value);
 
-        //updating state for compound and plate data
+        //updating state for field inputs
         this.setState(() => {
             return {
                 [name]: value,
             }
         });
-        
-        //updating array for well data
-        if (event.target.name === 'wells') {
-            const wellOptions = event.target.options;
-            console.log('Well Options: ', wellOptions);
-            for (let i = 0; i < wellOptions.length; i++) {
-                if (wellOptions[i].selected) {
-                    console.log('Selected well options.', wellOptions[i]);
-                    wells.push(wellOptions[i].textContent);
-                    //FIXME: Options are getting selected more than once when I only click once
-                }
-            }
-        }
-
-        //updating array for well data
-        if (event.target.name === 'newWells') {
-            const wellOptions = event.target.options;
-            for (let i = 0; i < wellOptions.length; i++) {
-                if (wellOptions[i].selected) {
-                    console.log('Selected well options.', wellOptions[i]);
-                    newWells.push(wellOptions[i].textContent);
-                    //FIXME: Options are getting selected more than once when I only click once
-                }
-            }
-        }
-
     }
 
     register = (event) => {
         event.preventDefault();
         const {
             compoundID,
+            wells,
         } = this.state;
 
         const newCompound = {
@@ -112,10 +63,10 @@ class RegisterCompound extends Component {
 
         //putting the wells contents into existingWells array before resetting wells
         //resetting the form fields need to do this manually because I am preventing default submit
-        wells = [];
         this.setState(() => {
             return {
                 compoundID: '',
+                wells: '',
             }
         });
     }
@@ -149,7 +100,9 @@ class RegisterCompound extends Component {
     render() {
         const {
             compoundID,
-            transferFrom
+            wells,
+            transferFrom,
+            newWells,
         } = this.state;
 
         console.log('Making sure state is updated correctly', this.state);
@@ -180,8 +133,8 @@ class RegisterCompound extends Component {
                 <div className="transfer-compound-modal">
                     <form id="transfer-compound-form" className="transfer-compound-form">
                         <input 
-                            id="existingWell"
-                            name="existingWell"
+                            id="transferFrom"
+                            name="transferFrom"
                             type="text"
                             placeholder="Well to transfer from..."
                             onChange={this.change}
