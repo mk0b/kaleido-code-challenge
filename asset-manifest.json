@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/kaleido-code-challenge/static/css/main.7c10a726.chunk.css",
+    "main.js": "/kaleido-code-challenge/static/js/main.3c8ef938.chunk.js",
+    "main.js.map": "/kaleido-code-challenge/static/js/main.3c8ef938.chunk.js.map",
+    "runtime-main.js": "/kaleido-code-challenge/static/js/runtime-main.9db11eef.js",
+    "runtime-main.js.map": "/kaleido-code-challenge/static/js/runtime-main.9db11eef.js.map",
+    "static/js/2.9966f559.chunk.js": "/kaleido-code-challenge/static/js/2.9966f559.chunk.js",
+    "static/js/2.9966f559.chunk.js.map": "/kaleido-code-challenge/static/js/2.9966f559.chunk.js.map",
+    "index.html": "/kaleido-code-challenge/index.html",
+    "precache-manifest.b17a09980edd0983098d26b353071f97.js": "/kaleido-code-challenge/precache-manifest.b17a09980edd0983098d26b353071f97.js",
+    "service-worker.js": "/kaleido-code-challenge/service-worker.js",
+    "static/css/main.7c10a726.chunk.css.map": "/kaleido-code-challenge/static/css/main.7c10a726.chunk.css.map",
+    "static/js/2.9966f559.chunk.js.LICENSE.txt": "/kaleido-code-challenge/static/js/2.9966f559.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9db11eef.js",
+    "static/js/2.9966f559.chunk.js",
+    "static/css/main.7c10a726.chunk.css",
+    "static/js/main.3c8ef938.chunk.js"
+  ]
+}
