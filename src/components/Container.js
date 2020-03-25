@@ -101,8 +101,6 @@ class RegisterCompound extends Component {
                     //stopping once a match is found
                     break;
 
-                } else {
-                    console.log('Error! This well does not exist. Please register a compound with this well before attempting a transfer.');
                 }
             }
         } else {

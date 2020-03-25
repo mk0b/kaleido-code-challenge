@@ -7,7 +7,8 @@ const Header = () => (
                 <h1>
                     Compound Tracking
                 </h1>
-                <p>Kaleido Code Challenge by Megan Katherine O'Brien</p>
+                <h3>Kaleido Code Challenge by <a target="blank" href="https://www.megankatherineobrien.com/">Megan Katherine O'Brien</a></h3>
+                <p>Submitted on 03/25/2020</p>
             </div>
         </header>
     </Fragment>

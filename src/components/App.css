@@ -44,3 +44,15 @@ header {
   color: #333333;
   padding: 1px;
 }
+
+header h1 {
+  margin: 10px;
+}
+
+header h3 {
+  margin: 10px;
+}
+
+header p {
+  margin: 10px;
+}
